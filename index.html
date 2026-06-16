@@ -87,21 +87,99 @@
         .info-box ul { list-style: none; padding-left: 0; }
         .info-box ul li { font-size: 12px; color: #a0b4c8; padding: 4px 0; padding-left: 18px; position: relative; }
         .info-box ul li::before { content: "•"; color: #6bb8ff; position: absolute; left: 0; font-weight: bold; }
-        .submit-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #f0c040, #e0a820); border: none; border-radius: 12px; color: #0a1628; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; letter-spacing: 1px; }
+        .submit-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #f0c040, #e0a820); border: none; border-radius: 12px; color: #0a1628; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(240, 192, 64, 0.3); }
-        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
         .footer-note { text-align: center; margin-top: 20px; font-size: 11px; color: #667788; line-height: 1.8; }
         .hidden { display: none; }
         .tag-highlight { background: rgba(240, 192, 64, 0.15); color: #f0c040; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
         .bilingual { display: block; }
         .bilingual .bn { font-family: 'Kalpurush', 'Noto Sans Bengali', sans-serif; font-size: 13px; color: #8899aa; margin-top: 2px; }
         .pnr-note { font-size: 11px; color: #6bb8ff; margin-top: 4px; }
-        .success-msg { display: none; text-align: center; padding: 40px; background: rgba(74, 222, 128, 0.1); border-radius: 16px; border: 1px solid rgba(74, 222, 128, 0.3); }
-        .success-msg h3 { color: #4ade80; font-size: 20px; margin-bottom: 10px; }
-        .success-msg p { color: #a0b4c8; font-size: 14px; }
-        .spinner { display: none; width: 20px; height: 20px; border: 2px solid rgba(240,192,64,0.3); border-top-color: #f0c040; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 8px; vertical-align: middle; }
+
+        /* Success Page Styles */
+        .success-page {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(74, 222, 128, 0.08);
+            border-radius: 20px;
+            border: 1px solid rgba(74, 222, 128, 0.25);
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+        }
+        .success-page .success-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        .success-page h2 {
+            font-size: 28px;
+            color: #4ade80;
+            margin-bottom: 16px;
+        }
+        .success-page .success-text {
+            font-size: 15px;
+            color: #a0b4c8;
+            line-height: 1.8;
+            max-width: 500px;
+            margin: 0 auto 24px;
+        }
+        .success-page .success-text strong {
+            color: #f0c040;
+        }
+        .success-page .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .success-page .btn-secondary {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            color: #e8ecf1;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .success-page .btn-secondary:hover {
+            background: rgba(255,255,255,0.15);
+            border-color: #f0c040;
+        }
+        .success-page .btn-primary {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #f0c040, #e0a820);
+            border: none;
+            border-radius: 10px;
+            color: #0a1628;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .success-page .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(240, 192, 64, 0.3);
+        }
+
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(10,22,40,0.3);
+            border-top-color: #0a1628;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
         @keyframes spin { to { transform: rotate(360deg); } }
-        @media (max-width: 600px) { .awards-grid { grid-template-columns: 1fr; } }
+
+        @media (max-width: 600px) {
+            .awards-grid { grid-template-columns: 1fr; }
+            .success-page h2 { font-size: 22px; }
+        }
     </style>
 </head>
 <body>
@@ -113,7 +191,7 @@
             <div class="period">Campaign Period: July 1 — August 31, 2026 | Winners Announcement: Sept 1–7, 2026</div>
         </div>
 
-        <div class="awards-banner">
+        <div class="awards-banner" id="awardsBanner">
             <h2>🏆 Prizes & Winners</h2>
             <div class="awards-grid">
                 <div class="award-channel">
@@ -131,21 +209,28 @@
                     <div class="total-row"><strong>800 Winners</strong> | Total ≈ 424,000 BDT</div>
                 </div>
             </div>
-            <div class="total-row" style="margin-top:16px; font-size:14px;"><strong>1,000 Total Winners</strong> | Two separate tracks with the same scoring system</div>
+            <div class="total-row" style="margin-top:16px; font-size:14px;">
+                <strong>1,000 Total Winners</strong> | Two separate tracks with the same scoring system
+            </div>
         </div>
 
-        <!-- ========== OPTION A: Google Apps Script Backend ========== -->
-        <!-- 
-        INSTRUCTIONS FOR GOOGLE APPS SCRIPT:
-        1. Go to https://script.google.com → New Project
-        2. Paste the script from the deployment guide below
-        3. Deploy → New Deployment → Web App → Execute as: Me → Access: Anyone
-        4. Copy the Web App URL and paste it in the action attribute below
-        5. Remove the "#" from action="#" 
-        -->
-        <form id="ugcForm" action="https://script.google.com/macros/s/AKfycbyiDZrEyOpe6wY5Jk4ugVkWpCJBPYqMtJZW0zjHCQ0hYAFa9h97WMlFcSxBO9g-xKYv/exec" method="POST">
+        <!-- SUCCESS PAGE -->
+        <div class="success-page" id="successPage">
+            <div class="success-icon">🎉</div>
+            <h2>Submission Successful!</h2>
+            <div class="success-text">
+                <strong>English:</strong> Thank you for your entry! Your submission has been recorded. Please ensure your video remains public with the required hashtags <span class="tag-highlight">#EzvizGuardYear</span> <span class="tag-highlight">#Guardyourmemory</span> and tagged <strong>@EzvizBD</strong>. Good luck!<br><br>
+                <strong>বাংলা:</strong> আপনার এন্ট্রির জন্য ধন্যবাদ! আপনার জমা সফলভাবে সংরক্ষণ করা হয়েছে। অনুগ্রহ করে নিশ্চিত করুন যে আপনার ভিডিও প্রয়োজনীয় হ্যাশট্যাগ <span class="tag-highlight">#EzvizGuardYear</span> <span class="tag-highlight">#Guardyourmemory</span> এবং <strong>@EzvizBD</strong> ট্যাগ সহ পাবলিক আছে। শুভকামনা!
+            </div>
+            <div class="btn-group">
+                <a href="" class="btn-primary" onclick="location.reload(); return false;">Submit Another Entry / আরেকটি এন্ট্রি জমা দিন</a>
+                <a href="https://www.facebook.com/EzvizBD" target="_blank" class="btn-secondary">Follow Ezviz BD / Ezviz BD ফলো করুন</a>
+            </div>
+        </div>
 
-            <!-- Platform & Account -->
+        <!-- FORM -->
+        <form id="ugcForm">
+
             <div class="form-card">
                 <h2>📱 Platform & Account / প্ল্যাটফর্ম এবং অ্যাকাউন্ট</h2>
                 <div class="form-group">
@@ -176,7 +261,6 @@
                 </div>
             </div>
 
-            <!-- Participant Type -->
             <div class="form-card">
                 <h2>👤 Participant Type / অংশগ্রহণকারীর ধরন</h2>
                 <div class="form-group">
@@ -199,7 +283,6 @@
                 </div>
             </div>
 
-            <!-- Entry Information -->
             <div class="form-card">
                 <h2>🎬 Entry Information / এন্ট্রি তথ্য</h2>
                 <div class="form-group">
@@ -221,7 +304,6 @@
                 </div>
             </div>
 
-            <!-- Bonus Points -->
             <div class="form-card">
                 <h2>⭐ Bonus Points (Optional) / বোনাস পয়েন্ট (ঐচ্ছিক)</h2>
                 <div class="form-group">
@@ -234,7 +316,6 @@
                 </div>
             </div>
 
-            <!-- Contact -->
             <div class="form-card">
                 <h2>📞 Contact / যোগাযোগ</h2>
                 <div class="form-group">
@@ -246,7 +327,6 @@
                 </div>
             </div>
 
-            <!-- Authorization -->
             <div class="form-card">
                 <h2>📝 Authorization / অনুমতি</h2>
                 <div class="checkbox-group">
@@ -259,7 +339,7 @@
             </div>
 
             <button type="submit" class="submit-btn" id="submitBtn">
-                <span class="spinner" id="spinner"></span>
+                <div class="spinner" id="spinner"></div>
                 <span id="btnText">SUBMIT / জমা দিন</span>
             </button>
             <div class="footer-note">
@@ -268,14 +348,12 @@
                 Winners Announcement: September 1–7, 2026 / বিজয়ী ঘোষণা: ১–৭ সেপ্টেম্বর, ২০২৬
             </div>
         </form>
-
-        <div class="success-msg" id="successMsg">
-            <h3>✅ Submission Received!</h3>
-            <p>Thank you for your entry! Please ensure your video is published with the required hashtags. Good luck!<br><br>আপনার এন্ট্রির জন্য ধন্যবাদ! অনুগ্রহ করে নিশ্চিত করুন যে আপনার ভিডিও প্রয়োজনীয় হ্যাশট্যাগ সহ প্রকাশিত হয়েছে। শুভকামনা!</p>
-        </div>
     </div>
 
     <script>
+        // CONFIGURATION - Replace with your actual Google Apps Script Web App URL
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbyiDZrEyOpe6wY5Jk4ugVkWpCJBPYqMtJZW0zjHCQ0hYAFa9h97WMlFcSxBO9g-xKYv/exec";
+
         // Show/hide PNR field
         document.querySelectorAll('input[name="participant_type"]').forEach(radio => {
             radio.addEventListener('change', function() {
@@ -292,46 +370,64 @@
             });
         });
 
-        // Form submission with fetch
+        // Form submission with AJAX
         document.getElementById('ugcForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+
+            // Check if URL is configured
+            if (GAS_URL.includes('YOUR_SCRIPT_ID') || GAS_URL === '') {
+                alert('Please configure the GAS_URL in the script first. Replace YOUR_SCRIPT_ID with your actual Google Apps Script Web App URL.');
+                return;
+            }
+
             const btn = document.getElementById('submitBtn');
             const spinner = document.getElementById('spinner');
             const btnText = document.getElementById('btnText');
             const form = e.target;
 
-            // Check if action URL is configured
-            if (form.action === window.location.href || form.action === '#') {
-                alert('Please configure the form action URL first. See the deployment instructions in the HTML comments.');
-                return;
-            }
-
             btn.disabled = true;
-            spinner.style.display = 'inline-block';
+            spinner.style.display = 'block';
             btnText.textContent = 'Submitting... / জমা হচ্ছে...';
 
             try {
+                // Build form data as URL-encoded string (compatible with Apps Script)
                 const formData = new FormData(form);
-                const response = await fetch(form.action, {
+                const params = new URLSearchParams();
+                for (let [key, value] of formData.entries()) {
+                    params.append(key, value);
+                }
+
+                // Use no-cors mode to avoid CORS issues with Apps Script
+                const response = await fetch(GAS_URL, {
                     method: 'POST',
-                    body: formData
+                    body: params.toString(),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    mode: 'no-cors'
                 });
 
-                if (response.ok) {
-                    form.style.display = 'none';
-                    document.getElementById('successMsg').style.display = 'block';
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else {
-                    throw new Error('Submission failed');
-                }
+                // With no-cors, we can't read the response, but the request is sent
+                // So we assume success if no error was thrown
+                showSuccess();
+
             } catch (error) {
-                alert('Submission failed. Please try again later.
-জমা দিতে ব্যর্থ হয়েছে। অনুগ্রহ করে পরে আবার চেষ্টা করুন।');
+                console.error('Error:', error);
+                alert('Submission failed. Please check your connection and try again.
+জমা দিতে ব্যর্থ হয়েছে। অনুগ্রহ করে আপনার সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।');
                 btn.disabled = false;
                 spinner.style.display = 'none';
                 btnText.textContent = 'SUBMIT / জমা দিন';
             }
         });
+
+        function showSuccess() {
+            // Hide form and awards, show success page
+            document.getElementById('ugcForm').style.display = 'none';
+            document.getElementById('awardsBanner').style.display = 'none';
+            document.getElementById('successPage').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
