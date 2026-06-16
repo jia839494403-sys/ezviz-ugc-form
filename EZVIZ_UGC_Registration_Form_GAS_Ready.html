@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EZVIZ Bangladesh UGC Campaign Registration</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans Bengali', 'Kalpurush', sans-serif;
+            background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 50%, #0d2137 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #e8ecf1;
+        }
+        .container { max-width: 780px; margin: 0 auto; }
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .header h1 { font-size: 26px; color: #fff; margin-bottom: 8px; letter-spacing: 1px; }
+        .header .subtitle { font-size: 16px; color: #f0c040; font-weight: 600; }
+        .header .hashtag { font-size: 13px; color: #6bb8ff; margin-top: 8px; }
+        .header .period { font-size: 12px; color: #8899aa; margin-top: 8px; }
+        .awards-banner {
+            background: rgba(240, 192, 64, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(240, 192, 64, 0.2);
+        }
+        .awards-banner h2 { text-align: center; font-size: 18px; color: #f0c040; margin-bottom: 20px; }
+        .awards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .award-channel, .award-user { background: rgba(0,0,0,0.25); border-radius: 12px; padding: 16px; }
+        .award-channel h3, .award-user h3 { font-size: 14px; margin-bottom: 12px; text-align: center; }
+        .award-channel h3 { color: #6bb8ff; }
+        .award-user h3 { color: #4ade80; }
+        .award-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px; }
+        .award-item:last-child { border-bottom: none; }
+        .award-name { color: #b8c8d8; }
+        .award-prize { color: #f0c040; font-weight: 600; }
+        .total-row { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; font-size: 13px; color: #c8d4e0; }
+        .total-row strong { color: #f0c040; }
+        .form-card {
+            background: rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .form-card h2 { font-size: 16px; color: #f0c040; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-size: 13px; color: #b8c8d8; margin-bottom: 6px; font-weight: 500; }
+        .form-group label .required { color: #ff6b6b; margin-left: 3px; }
+        .form-group label .optional { color: #8899aa; font-size: 11px; margin-left: 4px; }
+        .form-group input[type="text"],
+        .form-group input[type="url"],
+        .form-group input[type="tel"],
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 10px;
+            color: #e8ecf1;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: #f0c040; background: rgba(0,0,0,0.4); }
+        .form-group input::placeholder { color: #556677; }
+        .form-group select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238899aa' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; }
+        .form-group select option { background: #1a3a5c; color: #e8ecf1; }
+        .radio-group { display: flex; gap: 20px; flex-wrap: wrap; }
+        .radio-group label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; color: #b8c8d8; }
+        .radio-group input[type="radio"] { width: 18px; height: 18px; accent-color: #f0c040; cursor: pointer; }
+        .checkbox-group { display: flex; align-items: flex-start; gap: 12px; padding: 16px; background: rgba(240, 192, 64, 0.08); border-radius: 10px; border: 1px solid rgba(240, 192, 64, 0.2); }
+        .checkbox-group input[type="checkbox"] { width: 20px; height: 20px; accent-color: #f0c040; margin-top: 2px; cursor: pointer; }
+        .checkbox-group .checkbox-text { font-size: 13px; color: #c8d4e0; line-height: 1.6; }
+        .info-box { background: rgba(107, 184, 255, 0.08); border-radius: 10px; padding: 16px; margin-bottom: 18px; border: 1px solid rgba(107, 184, 255, 0.15); }
+        .info-box h3 { font-size: 13px; color: #6bb8ff; margin-bottom: 10px; }
+        .info-box ul { list-style: none; padding-left: 0; }
+        .info-box ul li { font-size: 12px; color: #a0b4c8; padding: 4px 0; padding-left: 18px; position: relative; }
+        .info-box ul li::before { content: "•"; color: #6bb8ff; position: absolute; left: 0; font-weight: bold; }
+        .submit-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #f0c040, #e0a820); border: none; border-radius: 12px; color: #0a1628; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; letter-spacing: 1px; }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(240, 192, 64, 0.3); }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .footer-note { text-align: center; margin-top: 20px; font-size: 11px; color: #667788; line-height: 1.8; }
+        .hidden { display: none; }
+        .tag-highlight { background: rgba(240, 192, 64, 0.15); color: #f0c040; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+        .bilingual { display: block; }
+        .bilingual .bn { font-family: 'Kalpurush', 'Noto Sans Bengali', sans-serif; font-size: 13px; color: #8899aa; margin-top: 2px; }
+        .pnr-note { font-size: 11px; color: #6bb8ff; margin-top: 4px; }
+        .success-msg { display: none; text-align: center; padding: 40px; background: rgba(74, 222, 128, 0.1); border-radius: 16px; border: 1px solid rgba(74, 222, 128, 0.3); }
+        .success-msg h3 { color: #4ade80; font-size: 20px; margin-bottom: 10px; }
+        .success-msg p { color: #a0b4c8; font-size: 14px; }
+        .spinner { display: none; width: 20px; height: 20px; border: 2px solid rgba(240,192,64,0.3); border-top-color: #f0c040; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 8px; vertical-align: middle; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @media (max-width: 600px) { .awards-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>EZVIZ BANGLADESH — UGC CAMPAIGN</h1>
+            <div class="subtitle">#EzvizGuardMemory</div>
+            <div class="hashtag">#EzvizGuardYear #Guardyourmemory</div>
+            <div class="period">Campaign Period: July 1 — August 31, 2026 | Winners Announcement: Sept 1–7, 2026</div>
+        </div>
+
+        <div class="awards-banner">
+            <h2>🏆 Prizes & Winners</h2>
+            <div class="awards-grid">
+                <div class="award-channel">
+                    <h3>Channel Track (DPP / Installer)</h3>
+                    <div class="award-item"><span class="award-name">Grand Prize (Top 3)</span><span class="award-prize">HB8 Lite Kit 4G</span></div>
+                    <div class="award-item"><span class="award-name">Partner Prize (Top 4–20)</span><span class="award-prize">H8c 4G 5MP</span></div>
+                    <div class="award-item"><span class="award-name">Memory Prize (Top 21–200)</span><span class="award-prize">Nagad BDT 300</span></div>
+                    <div class="total-row"><strong>200 Winners</strong> | Total ≈ 207,520 BDT</div>
+                </div>
+                <div class="award-user">
+                    <h3>Consumer Track</h3>
+                    <div class="award-item"><span class="award-name">Grand Prize (Top 30)</span><span class="award-prize">C6N G1 8MP</span></div>
+                    <div class="award-item"><span class="award-name">Viral Prize (Top 31–150)</span><span class="award-prize">Daraz Gift Card BDT 1,000</span></div>
+                    <div class="award-item"><span class="award-name">Memory Prize (Top 151–800)</span><span class="award-prize">Nagad BDT 200</span></div>
+                    <div class="total-row"><strong>800 Winners</strong> | Total ≈ 424,000 BDT</div>
+                </div>
+            </div>
+            <div class="total-row" style="margin-top:16px; font-size:14px;"><strong>1,000 Total Winners</strong> | Two separate tracks with the same scoring system</div>
+        </div>
+
+        <!-- ========== OPTION A: Google Apps Script Backend ========== -->
+        <!-- 
+        INSTRUCTIONS FOR GOOGLE APPS SCRIPT:
+        1. Go to https://script.google.com → New Project
+        2. Paste the script from the deployment guide below
+        3. Deploy → New Deployment → Web App → Execute as: Me → Access: Anyone
+        4. Copy the Web App URL and paste it in the action attribute below
+        5. Remove the "#" from action="#" 
+        -->
+        <form id="ugcForm" action="https://script.google.com/macros/s/AKfycbz6frB9c6zqPEpWpsYu4ccPhm62A4b-a3cW51nrz1TOuAcALuDfN490HSuDHAxv7ROaLg/exec" method="POST">
+
+            <!-- Platform & Account -->
+            <div class="form-card">
+                <h2>📱 Platform & Account / প্ল্যাটফর্ম এবং অ্যাকাউন্ট</h2>
+                <div class="form-group">
+                    <label class="bilingual">
+                        Select Platform <span class="required">*</span>
+                        <span class="bn">প্ল্যাটফর্ম নির্বাচন করুন</span>
+                    </label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="platform" value="Facebook" required> Facebook</label>
+                        <label><input type="radio" name="platform" value="YouTube"> YouTube</label>
+                        <label><input type="radio" name="platform" value="TikTok"> TikTok</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="bilingual">
+                        Platform Username <span class="required">*</span>
+                        <span class="bn">প্ল্যাটফর্ম ব্যবহারকারীর নাম (যেমন: @username)</span>
+                    </label>
+                    <input type="text" name="username" placeholder="e.g. @username" required>
+                </div>
+                <div class="info-box">
+                    <h3>⚠️ Account Requirements / অ্যাকাউন্টের শর্তাবলী</h3>
+                    <ul>
+                        <li>Account must be Public / অ্যাকাউন্টটি পাবলিক হতে হবে</li>
+                        <li>Must follow Ezviz BD official account on selected platform / নির্বাচিত প্ল্যাটফর্মে Ezviz BD অফিসিয়াল অ্যাকাউন্ট ফলো করতে হবে</li>
+                        <li>Video must remain on platform for at least 30 days / ভিডিও কমপক্ষে ৩০ দিন প্ল্যাটফর্মে থাকতে হবে</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Participant Type -->
+            <div class="form-card">
+                <h2>👤 Participant Type / অংশগ্রহণকারীর ধরন</h2>
+                <div class="form-group">
+                    <label class="bilingual">
+                        Select your participant type <span class="required">*</span>
+                        <span class="bn">আপনার অংশগ্রহণের ধরন নির্বাচন করুন</span>
+                    </label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="participant_type" value="individual" required> Individual Consumer / ব্যক্তিগত ব্যবহারকারী</label>
+                        <label><input type="radio" name="participant_type" value="channel"> Channel User (DPP / Installer) / চ্যানেল ব্যবহারকারী</label>
+                    </div>
+                </div>
+                <div class="form-group hidden" id="pnrGroup">
+                    <label class="bilingual">
+                        PNR Account <span class="required">*</span>
+                        <span class="bn">PNR অ্যাকাউন্ট (শুধুমাত্র ইনস্টলারদের জন্য বাধ্যতামূলক; DPP-র জন্য প্রয়োজন নেই)</span>
+                    </label>
+                    <input type="text" name="pnr_account" placeholder="Enter your PNR account">
+                    <div class="pnr-note">Required for Installers only. DPP participants do not need to fill this. / শুধুমাত্র ইনস্টলারদের জন্য বাধ্যতামূলক। DPP অংশগ্রহণকারীদের এটি পূরণ করতে হবে না।</div>
+                </div>
+            </div>
+
+            <!-- Entry Information -->
+            <div class="form-card">
+                <h2>🎬 Entry Information / এন্ট্রি তথ্য</h2>
+                <div class="form-group">
+                    <label class="bilingual">
+                        Video URL <span class="required">*</span>
+                        <span class="bn">ভিডিও লিংক</span>
+                    </label>
+                    <input type="url" name="video_url" placeholder="Paste the full video URL" required>
+                </div>
+                <div class="info-box">
+                    <h3>📋 Content Requirements / কন্টেন্টের শর্তাবলী</h3>
+                    <ul>
+                        <li>Video duration ≥ 30 seconds / ভিডিওর সময়কাল কমপক্ষে ৩০ সেকেন্ড</li>
+                        <li>Must include hashtags: <span class="tag-highlight">#EzvizGuardYear</span> <span class="tag-highlight">#Guardyourmemory</span></li>
+                        <li>Must tag <strong>@EzvizBD</strong> official account / অবশ্যই <strong>@EzvizBD</strong> অফিসিয়াল অ্যাকাউন্টে ট্যাগ করতে হবে</li>
+                        <li>If no Ezviz device, say in video: <strong>"Ezviz, Guard and Never Miss"</strong></li>
+                        <li>No duplicate entries / একই কন্টেন্ট একাধিকবার জমা দেওয়া যাবে না</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bonus Points -->
+            <div class="form-card">
+                <h2>⭐ Bonus Points (Optional) / বোনাস পয়েন্ট (ঐচ্ছিক)</h2>
+                <div class="form-group">
+                    <label class="bilingual">
+                        Daraz Account
+                        <span class="optional">(Optional — follow Ezviz Daraz flagship store for +5 points)</span>
+                        <span class="bn">Daraz অ্যাকাউন্ট (ঐচ্ছিক — Ezviz Daraz ফ্ল্যাগশিপ স্টোর ফলো করলে +৫ পয়েন্ট)</span>
+                    </label>
+                    <input type="text" name="daraz_account" placeholder="Your Daraz account">
+                </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="form-card">
+                <h2>📞 Contact / যোগাযোগ</h2>
+                <div class="form-group">
+                    <label class="bilingual">
+                        Phone Number <span class="required">*</span>
+                        <span class="bn">মোবাইল নম্বর (Nagad পেমেন্ট এবং বিজয়ী বিজ্ঞপ্তির জন্য)</span>
+                    </label>
+                    <input type="tel" name="phone" placeholder="For Nagad payment & winner notification" required>
+                </div>
+            </div>
+
+            <!-- Authorization -->
+            <div class="form-card">
+                <h2>📝 Authorization / অনুমতি</h2>
+                <div class="checkbox-group">
+                    <input type="checkbox" name="authorization" id="authCheck" required>
+                    <div class="checkbox-text">
+                        <strong>English:</strong> I authorize EZVIZ Bangladesh to use my submitted content for brand promotion. I understand that EZVIZ has the right to use my entry on official social media, advertisements, and other marketing channels.<br><br>
+                        <strong>বাংলা:</strong> আমি EZVIZ Bangladesh-কে আমার জমা দেওয়া কন্টেন্ট ব্র্যান্ড প্রচারের জন্য ব্যবহার করার অনুমতি দিচ্ছি। আমি বুঝতে পারছি যে EZVIZ-এর আমার এন্ট্রি তাদের অফিসিয়াল সোশ্যাল মিডিয়া, বিজ্ঞাপন এবং অন্যান্য মার্কেটিং চ্যানেলে ব্যবহার করার অধিকার রয়েছে।
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <span class="spinner" id="spinner"></span>
+                <span id="btnText">SUBMIT / জমা দিন</span>
+            </button>
+            <div class="footer-note">
+                Deadline: August 31, 2026 23:59 (final data as of this date)<br>
+                শেষ তারিখ: ৩১ আগস্ট, ২০২৬ ২৩:৫৯<br><br>
+                Winners Announcement: September 1–7, 2026 / বিজয়ী ঘোষণা: ১–৭ সেপ্টেম্বর, ২০২৬
+            </div>
+        </form>
+
+        <div class="success-msg" id="successMsg">
+            <h3>✅ Submission Received!</h3>
+            <p>Thank you for your entry! Please ensure your video is published with the required hashtags. Good luck!<br><br>আপনার এন্ট্রির জন্য ধন্যবাদ! অনুগ্রহ করে নিশ্চিত করুন যে আপনার ভিডিও প্রয়োজনীয় হ্যাশট্যাগ সহ প্রকাশিত হয়েছে। শুভকামনা!</p>
+        </div>
+    </div>
+
+    <script>
+        // Show/hide PNR field
+        document.querySelectorAll('input[name="participant_type"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const pnrGroup = document.getElementById('pnrGroup');
+                const pnrInput = pnrGroup.querySelector('input');
+                if (this.value === 'channel') {
+                    pnrGroup.classList.remove('hidden');
+                    pnrInput.setAttribute('required', 'required');
+                } else {
+                    pnrGroup.classList.add('hidden');
+                    pnrInput.removeAttribute('required');
+                    pnrInput.value = '';
+                }
+            });
+        });
+
+        // Form submission with fetch
+        document.getElementById('ugcForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const spinner = document.getElementById('spinner');
+            const btnText = document.getElementById('btnText');
+            const form = e.target;
+
+            // Check if action URL is configured
+            if (form.action === window.location.href || form.action === '#') {
+                alert('Please configure the form action URL first. See the deployment instructions in the HTML comments.');
+                return;
+            }
+
+            btn.disabled = true;
+            spinner.style.display = 'inline-block';
+            btnText.textContent = 'Submitting... / জমা হচ্ছে...';
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    form.style.display = 'none';
+                    document.getElementById('successMsg').style.display = 'block';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    throw new Error('Submission failed');
+                }
+            } catch (error) {
+                alert('Submission failed. Please try again later.
+জমা দিতে ব্যর্থ হয়েছে। অনুগ্রহ করে পরে আবার চেষ্টা করুন।');
+                btn.disabled = false;
+                spinner.style.display = 'none';
+                btnText.textContent = 'SUBMIT / জমা দিন';
+            }
+        });
+    </script>
+</body>
+</html>
